@@ -1,5 +1,6 @@
 package com.abhimanyusharma.colorpicker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private ColorPickerView colorPickerView;
-    private String a;
+    private static String a, b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 // Handle on color change
                 Log.d("ColorPicker", "onColorChanged: 0x" + Integer.toHexString(selectedColor));
 
+                b = String.valueOf(selectedColor);
                 a = "#"+Integer.toHexString(selectedColor).toUpperCase();
                 button.setText(a);
                 button.setBackgroundColor(selectedColor);
@@ -53,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(MainActivity.this, "selectedColor: " + "#" + a, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "selectedColor: " + a, Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(getApplicationContext(), Main2Activity.class);
+                i.putExtra("color", a);
+                i.putExtra("value", b);
+                startActivity(i);
 
             }
         });
